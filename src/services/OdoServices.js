@@ -4,6 +4,7 @@ let getAllOdo = () => {
     const promise = new Promise( async function(resolve, reject) {
         try {
             let odo = await db.Odo.findAll({
+                attributes: ['tenodo', 'makhudo'],
                 raw: true
             })
             resolve(odo)

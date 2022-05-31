@@ -1,17 +1,20 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('taikhoans', {
-      sdt: {
+    await queryInterface.createTable('Odos', {
+      tenodo: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING
       },
-      matkhau: {
-        type: Sequelize.STRING
-      },
-      idquyen: {
-        type: Sequelize.INTEGER
+      makhudo: {
+        type: Sequelize.STRING,
+        references: {
+          model: 'Khudos', // name of Target model
+          key: 'makhudo', // key in Target model that we're referencing
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
       },
       createdAt: {
         allowNull: false,
@@ -24,6 +27,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('taikhoans');
+    await queryInterface.dropTable('Odos');
   }
 };

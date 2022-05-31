@@ -1,11 +1,21 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "parking-management",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "logging": false
+    "username": "hfyqttmjlhitjc",
+    "password": "3563ab556e1481c149f793b7f6e15b8165ba985f02b400932112a374cf48bf6d",
+    "database": "d9jvhjeoc6flit",
+    "host": "ec2-3-211-221-185.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "logging": false,
+    "query": {
+      "raw": true
+    },
+    "timezone": "+07:00",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
     "username": "root",

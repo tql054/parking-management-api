@@ -3,21 +3,20 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class LoaiXe extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Loaixe extends Model {
     static associate(models) {
-      // define association here
+      
+      // Loaixe.hasMany(models.Khudo,  { foreignKey: 'loaixe', as:'loaixeKhudo'})
+      // Loaixe.hasMany(models.Xe, { foreignKey: 'loaixe', as:'loaixePT'})
+      this.hasMany(models.Khudo)
+      this.hasMany(models.Xe)
     }
   };
-  LoaiXe.init({
-    loaiXe: DataTypes.STRING
+  Loaixe.init({
+    loaixe: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'LoaiXe',
+    modelName: 'Loaixe',
   });
-  return LoaiXe;
+  return Loaixe;
 };

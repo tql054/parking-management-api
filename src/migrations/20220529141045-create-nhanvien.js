@@ -1,21 +1,26 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('nhanviens', {
-      sdt: {
+    await queryInterface.createTable('Nhanviens', {
+      sodienthoai: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING(11)
+        type: Sequelize.STRING(11),
+        references: {
+          model: 'Taikhoans', // name of Target model
+          key: 'sodienthoai', // key in Target model that we're referencing
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
-      hoten: {
+      hovaten: {
         type: Sequelize.STRING
       },
       diachi: {
         type: Sequelize.STRING
       },
       cccd: {
-        type: Sequelize.STRING(11),
-        unique: true
+        type: Sequelize.STRING(10)
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +33,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('nhanviens');
+    await queryInterface.dropTable('Nhanviens');
   }
 };
