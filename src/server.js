@@ -13,6 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 viewEngie(app)
 initWebRoutes(app)
 
+// ADD THIS
+var cors = require('cors');
+app.use(cors());
 connectDB()
 
 let port = process.env.PORT || 6969
