@@ -1,6 +1,5 @@
 import OdoServices from '../services/OdoServices'
 let getHomePage = (req, res) => {
-    console.log(req)
     return res.render('homepage.ejs')
 }
 
@@ -9,7 +8,13 @@ let displayAllOdo = async (req, res) => {
     return res.send(data)
 }
 
+let displayAllOdoById = async (req, res) => {
+    const data = await OdoServices.getAllOdoById(req.params)
+    return res.send(data)
+}
+
 module.exports = {
     getHomePage,
-    displayAllOdo
+    displayAllOdo,
+    displayAllOdoById
 }

@@ -1,3 +1,4 @@
+
 import db from '../models/index'
 
 let getAllOdo = () => {
@@ -13,17 +14,41 @@ let getAllOdo = () => {
         }
     });
 
-    promise
-        .then(function(data) {
-            console.log(data)
-        }) 
-        .catch(function(error) {
-            console.log(error)
-        });
+    // promise
+    //     .then(function(data) {
+    //         console.log(data)
+    //     }) 
+    //     .catch(function(error) {
+    //         console.log(error)
+    //     });
 
     return promise;
 }
 
+let getAllOdoById = ({ makhudo }) => {
+    const promise = new Promise(async function(resolve, reject) {
+        try {
+            let odos = await db.Odo.findAll( {
+                    attributes: {
+                        exclude: ['id', 'KhudoId']
+                    },
+                    where: {
+                        makhudo: makhudo
+                    },
+                    raw: true
+                }
+            )
+            console.log(odos)
+            resolve(odos)
+        } catch (error) {
+            reject(error)
+        }
+    })
+
+    return promise
+}
+
 module.exports = {
-    getAllOdo
+    getAllOdo,
+    getAllOdoById
 }
