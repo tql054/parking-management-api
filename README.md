@@ -8,7 +8,7 @@ Get thông đăng ký by "maodo":
 
 
 
-Get all thông báo:
+Get all thông báo:              https://parkingmanagement16.herokuapp.com/thongbao
 Get thông báo by "id":
 
 Get all đăng ký:
