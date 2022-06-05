@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       
       // Loaixe.hasMany(models.Khudo,  { foreignKey: 'loaixe', as:'loaixeKhudo'})
       // Loaixe.hasMany(models.Xe, { foreignKey: 'loaixe', as:'loaixePT'})
-      this.hasMany(models.Khudo)
-      this.hasMany(models.Xe)
+      // this.hasMany(models.Khudo)
+      // this.hasMany(models.Xe)
     }
   };
   Loaixe.init({

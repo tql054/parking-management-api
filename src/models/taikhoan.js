@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       // Taikhoan.hasOne(models.Quanly, {foreignKey: 'sodienthoai', as:'sodienthoaiQL'})
       // Taikhoan.hasOne(models.Nhanvien, {foreignKey: 'sodienthoai', as:'sodienthoaiNV'})
       // Taikhoan.hasOne(models.Thanhvien, {foreignKey: 'sodienthoai', as:'sodienthoaiTV'})
-      this.belongsTo(models.Quyen)
-      this.hasOne(models.Quanly)
-      this.hasOne(models.Nhanvien)
-      this.hasOne(models.Thanhvien)
+      // this.belongsTo(models.Quyen)
+      // this.hasOne(models.Quanly)
+      // this.hasOne(models.Nhanvien)
+      // this.hasOne(models.Thanhvien)
     }
   };
   Taikhoan.init({

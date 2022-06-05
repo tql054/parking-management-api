@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Khudo.belongsTo(models.Loaixe, {foreignKey:'loaixe', targetKey:'loaixe', as:'loaixeKhudo'})
       // Khudo.hasMany(models.Odo, {foreignKey:'makhudo', as: 'makhudoOdo'})
-      this.belongsTo(models.Loaixe)
-      this.hasMany(models.Odo)
+      // this.belongsTo(models.Loaixe)
+      // this.hasMany(models.Odo)
     }
   };
   Khudo.init({

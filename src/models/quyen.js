@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Quyen.hasMany(models.Taikhoan, {foreignKey:'maQuuen', as:'maquyenTK'})
       // Quyen.hasMany(models.Doituongnhantb, {foreignKey:'maQuuen', as:'maquyenDTTB'})
-      this.hasMany(models.Taikhoan)
-      this.hasMany(models.Doituongnhantb)
+      // this.hasMany(models.Taikhoan)
+      // this.hasMany(models.Doituongnhantb)
     }
   };
   Quyen.init({

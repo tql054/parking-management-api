@@ -21,7 +21,7 @@ initWebRoutes(app)
 // app.use(cors());
 // connectDB()
 
-let port = process.env.PORT || 6969
+let port = 8096
 
 app.listen(port, () => {
     //callback

@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Quanly.belongsTo(models.Taikhoan, {foreignKey:'sodienthoai', as:'sodienthoaiQL'})
       // Quanly.hasMany(models.Thongbao, {foreignKey:'sodienthoai', as:'sodienthoaiTB'})
-      this.belongsTo(models.Taikhoan)
-      this.hasMany(models.Thongbao)
+      // this.belongsTo(models.Taikhoan)
+      // this.hasMany(models.Thongbao)
     }
   };
   Quanly.init({
