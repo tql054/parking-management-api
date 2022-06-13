@@ -6,9 +6,6 @@
     "host": "ec2-3-211-221-185.compute-1.amazonaws.com",
     "dialect": "postgres",
     "logging": false,
-    "query": {
-      "raw": true
-    },
     "timezone": "+07:00",
     "dialectOptions": {
       "ssl": {

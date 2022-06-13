@@ -13,6 +13,7 @@ let initWebRoutes = (app) => {
     // Thong bao api
     router.get('/thongbao', thongbaoController.getAllThongBao)
     router.post('/create-thongbao', thongbaoController.postThongBao)
+    router.delete('/delete-thongbao/:id', thongbaoController.deleteThongBao)
 
     // Quyen api
     router.get('/quyen', quyenController.getAllQuyen)

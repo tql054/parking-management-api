@@ -8,9 +8,9 @@ let getAllThongBao = async (req, res) => {
 
 let postThongBao = async (req, res) => {
     try {
-        let response =  await ThongbaoServices.createThongBao(req.body)
+        let response = await ThongbaoServices.createThongBao(req.body)
         return res.status(200).json(response)
-    } catch(e) {
+    } catch (e) {
         console.log(e)
         return res.status(200).json({
             errCode: -1,
@@ -19,7 +19,14 @@ let postThongBao = async (req, res) => {
     }
 }
 
+//delete thông báo
+let deleteThongBao = async (req, res) => {
+    const data = await ThongbaoServices.deleteNotification(req.params)
+    return res.send(data)
+}
+
 module.exports = {
     getAllThongBao,
-    postThongBao
+    postThongBao,
+    deleteThongBao
 }

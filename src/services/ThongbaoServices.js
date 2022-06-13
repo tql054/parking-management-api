@@ -44,8 +44,31 @@ let createThongBao = (data) => {
 }
 
 
+//function delete notification by id
+let deleteNotification = ({id}) => {
+    return new Promise(async (resolve, reject) => {
+        let notification = await db.Thongbao.findOne({
+            where: {id : id}
+        })
 
+        if (!notification) {
+            resolve({
+                errCode: 2,
+                errMessage : 'Id notification is not exist'
+            })
+        }
+        if (notification) {
+            await notification.destroy(); 
+        }
+
+        resolve({
+            errCCode: 0,
+            message : "Notification is deleted"
+        })
+    })
+}
 module.exports = {
     getAllThongbao,
-    createThongBao
+    createThongBao,
+    deleteNotification,
 }
