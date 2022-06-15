@@ -42,7 +42,7 @@ let getDangkyVL = () => {
     return promise
 }
 
-let getDangkyTVByName = ({ searchKey='', loaixe='', thutu='asc', dangky, tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyTVByName = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -72,7 +72,7 @@ let getDangkyTVByName = ({ searchKey='', loaixe='', thutu='asc', dangky, tinhtra
     return promise
 }
 
-let getDangkyTVByPhone = ({ searchKey='', loaixe='', thutu='asc', dangky, tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyTVByPhone = ({ searchKey='', loaixe='',tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -102,7 +102,7 @@ let getDangkyTVByPhone = ({ searchKey='', loaixe='', thutu='asc', dangky, tinhtr
 }
 
 
-let getDangkyTVByNumber = ({ searchKey='', loaixe='', thutu='asc', dangky, tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyTVByNumber = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -131,10 +131,68 @@ let getDangkyTVByNumber = ({ searchKey='', loaixe='', thutu='asc', dangky, tinht
     return promise
 }
 
+let getDangkyVLByNumber = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) => {
+    let filterNgaydang = ''
+    if(ngaydang==='false') {
+        filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
+    }
+    const promise = new Promise( async function(resolve, reject) {
+        try {
+            const query =   `select  tenodo, o.makhudo, dk.id, dk.biensoxe, thoigianbatdau, thoigianketthuc, 
+                            thoigiankethucthuc, k.loaixe, sodienthoai 
+                            from "Odos" o, "Dangkyvanglais" dk, "Khudos" k 
+                            where 	o.tenodo  = dk.odo and 
+                                    dk.odo = o.tenodo and
+                                    o.makhudo = k.makhudo and 
+                                    dk.biensoxe like '%${searchKey}%' and 
+                                    k.loaixe like '%${loaixe}%' ${filterNgaydang}    
+                            Order by thoigianketthuc desc`
+            resolve(await db.sequelize.query(
+                query
+                ,{ type: QueryTypes.SELECT }
+            ))
+        } catch (error) {
+            reject(error)
+        }
+    })
+
+    return promise
+}
+
+let getDangkyVLByPhone = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) => {
+    let filterNgaydang = ''
+    if(ngaydang==='false') {
+        filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
+    }
+    const promise = new Promise( async function(resolve, reject) {
+        try {
+            const query =   `select  tenodo, o.makhudo, dk.id, dk.biensoxe, thoigianbatdau, thoigianketthuc, 
+                            thoigiankethucthuc, k.loaixe, sodienthoai 
+                            from "Odos" o, "Dangkyvanglais" dk, "Khudos" k 
+                            where 	o.tenodo  = dk.odo and 
+                                    dk.odo = o.tenodo and
+                                    o.makhudo = k.makhudo and 
+                                    dk.sodienthoai like '%${searchKey}%' and 
+                                    k.loaixe like '%${loaixe}%' ${filterNgaydang}    
+                            Order by thoigianketthuc desc`
+            resolve(await db.sequelize.query(
+                query
+                ,{ type: QueryTypes.SELECT }
+            ))
+        } catch (error) {
+            reject(error)
+        }
+    })
+
+    return promise
+}
+
 module.exports = {
     getDangkyTV,
     getDangkyTVByName,
     getDangkyTVByPhone,
     getDangkyTVByNumber,
-    getDangkyVL
+    getDangkyVL,
+    getDangkyVLByPhone,
+    getDangkyVLByNumber
 }

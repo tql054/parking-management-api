@@ -22,6 +22,8 @@ let initWebRoutes = (app) => {
     // Dangky api
     router.get('/dangkythanhvien/:type', dangkyController.displayDangkyTV)
     router.get('/dangkyvanglai', dangkyController.displayDangkyVL)
+    router.get('/dangkyvanglai/:type', dangkyController.displayDangkyVL)
+
 
     //Loaixe api
     router.get('/loaixe', loaixeController.displayAllLoaixe)

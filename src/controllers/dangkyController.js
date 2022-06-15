@@ -20,8 +20,27 @@ let displayDangkyTV = async (req, res) => {
 }
 
 let displayDangkyVL = async (req, res) => {
-    const data = await DangkyServices.getDangkyVL()
-    return res.send(data)
+    console.log(req.params.type)
+    switch(req.params.type) {
+        case undefined: {
+            const data = await DangkyServices.getDangkyVL()
+            return res.send(data)
+        }
+        case 'username': {
+            // const data = await DangkyServices.getDangkyVLByName(req.query)
+            return res.send([])
+        }
+        case 'phone': {
+            const data = await DangkyServices.getDangkyVLByPhone(req.query)
+            return res.send(data)
+        }
+        case 'number': {
+            const data = await DangkyServices.getDangkyVLByNumber(req.query)
+            return res.send(data)
+        }
+        default: res.send({error: 404, message: 'Can not recognize search type'})
+    }
+    
 }
 
 module.exports = {
