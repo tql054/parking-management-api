@@ -1,7 +1,6 @@
 import DangkyServices from '../services/DangkyServices'
 
 let displayDangkyTV = async (req, res) => {
-    console.log(req.query)
     switch(req.params.type) {
         case 'username': {
             const data = await DangkyServices.getDangkyTVByName(req.query)
@@ -20,6 +19,12 @@ let displayDangkyTV = async (req, res) => {
     
 }
 
+let displayDangkyVL = async (req, res) => {
+    const data = await DangkyServices.getDangkyVL()
+    return res.send(data)
+}
+
 module.exports = {
     displayDangkyTV,
+    displayDangkyVL
 }

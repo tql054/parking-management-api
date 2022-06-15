@@ -3,6 +3,7 @@ import homeController from "../controllers/homeController"
 import thongbaoController from "../controllers/thongbaoController"
 import quyenController from "../controllers/quyenController"
 import dangkyController from "../controllers/dangkyController"
+import loaixeController from "../controllers/loaixeController"
 
 let router = express.Router()
 
@@ -20,6 +21,11 @@ let initWebRoutes = (app) => {
 
     // Dangky api
     router.get('/dangkythanhvien/:type', dangkyController.displayDangkyTV)
+    router.get('/dangkyvanglai', dangkyController.displayDangkyVL)
+
+    //Loaixe api
+    router.get('/loaixe', loaixeController.displayAllLoaixe)
+
 
     return app.use("/", router)
 }
