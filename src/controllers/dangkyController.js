@@ -14,7 +14,10 @@ let displayDangkyTV = async (req, res) => {
             const data = await DangkyServices.getDangkyTVByNumber(req.query)
             return res.send(data)
         }
-        default: res.send({error: 404, message: 'Can not recognize search type'})
+        default: {
+            const data = await DangkyServices.getDangkyTV()
+            res.send(data)
+        }
     }
     
 }

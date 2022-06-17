@@ -13,8 +13,16 @@ let displayAllOdoById = async (req, res) => {
     return res.send(data)
 }
 
+let displayAllOdoByDate = async (req, res) => {
+    const {makhudo} = req.params
+    console.log(req.body)
+    const data = await OdoServices.getAllOdoByDate(makhudo, req.query)
+    return res.send(data)
+}
+
 module.exports = {
     getHomePage,
     displayAllOdo,
-    displayAllOdoById
+    displayAllOdoById,
+    displayAllOdoByDate
 }

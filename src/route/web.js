@@ -11,6 +11,7 @@ let initWebRoutes = (app) => {
     router.get('/', homeController.getHomePage)
     router.get('/all-odo', homeController.displayAllOdo)
     router.get('/all-odo/:makhudo', homeController.displayAllOdoById)
+    router.get('/all-odo-bydate/:makhudo', homeController.displayAllOdoByDate)
 
     // Thong bao api
     router.get('/thongbao', thongbaoController.getAllThongBao)

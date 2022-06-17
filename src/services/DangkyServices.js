@@ -1,6 +1,6 @@
 import db from '../models/index'
 const { QueryTypes } = require('sequelize');
-let getDangkyTV = ({ loaixe='' }) => {
+let getDangkyTV = () => {
     const promise = new Promise( async function(resolve, reject) {
         try {
             const query =   `select tenodo, makhudo, dk.trangthai, dk.id, thoigianbatdau, dk.biensoxe, thoigianketthuc, 
