@@ -1,0 +1,39 @@
+const updateNotification = ({ id },data) => {
+    return new Promise(async (resolve, reject) => {
+        let notification = await db.Thongbao.update(
+            {
+                tieude: data.tieude,
+                noidung: data.noidung,
+            }
+            , {
+                where: { id: id }
+            })
+
+        if (!notification) {
+            resolve({
+                errCode: 2,
+                errMessage: 'Id notification is not exist'
+            })
+        }
+
+
+        resolve({
+            errCCode: 0,
+            message: "Notification is deleted"
+        })
+    })
+}
+
+
+let updateThongBao = async (req, res) => {
+    try {
+        let data = await ThongbaoServices.updateNotification(req.params,req.body)
+        return res.status(200).json(data)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server: ' + e
+        })
+    }
+}

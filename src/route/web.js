@@ -13,7 +13,9 @@ let initWebRoutes = (app) => {
     // Thong bao api
     router.get('/thongbao', thongbaoController.getAllThongBao)
     router.post('/create-thongbao', thongbaoController.postThongBao)
-    router.delete('/delete-thongbao/:id', thongbaoController.deleteThongBao)
+    router.delete('/delete-thongbao/:id', thongbaoController.deleteThongBao) //Xóa thông báo thông qua id
+    router.get('/edit-thongbao/:id', thongbaoController.getThongBao) //Lấy nội dung của thông báo cần sửa thông qua id
+    router.post('/put-thongbao', thongbaoController.putThongBao) //Sửa thông báo
 
     // Quyen api
     router.get('/quyen', quyenController.getAllQuyen)
