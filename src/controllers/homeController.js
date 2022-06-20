@@ -13,16 +13,30 @@ let displayAllOdoById = async (req, res) => {
     return res.send(data)
 }
 
-let displayAllOdoByDate = async (req, res) => {
+let displayAllOdoThanhvien = async (req, res) => {
     const {makhudo} = req.params
-    console.log(req.body)
-    const data = await OdoServices.getAllOdoByDate(makhudo, req.query)
+    const data = await OdoServices.getAllOdoThanhvien(makhudo, req.query)
     return res.send(data)
+}
+
+let displayAllOdoVanglai = async (req, res) => {
+    const {makhudo} = req.params
+    try {
+        let data = await OdoServices.getAllOdoVanglai(makhudo, req.query)
+        return res.send(data)
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            errCode: -1,
+            errMessage: 'Error from server: ' + e
+        })
+    }
 }
 
 module.exports = {
     getHomePage,
     displayAllOdo,
     displayAllOdoById,
-    displayAllOdoByDate
+    displayAllOdoThanhvien,
+    displayAllOdoVanglai
 }

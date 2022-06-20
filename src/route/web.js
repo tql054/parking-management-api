@@ -4,6 +4,7 @@ import thongbaoController from "../controllers/thongbaoController"
 import quyenController from "../controllers/quyenController"
 import dangkyController from "../controllers/dangkyController"
 import loaixeController from "../controllers/loaixeController"
+import khudoController from "../controllers/khudoController"
 
 let router = express.Router()
 
@@ -11,7 +12,11 @@ let initWebRoutes = (app) => {
     router.get('/', homeController.getHomePage)
     router.get('/all-odo', homeController.displayAllOdo)
     router.get('/all-odo/:makhudo', homeController.displayAllOdoById)
-    router.get('/all-odo-bydate/:makhudo', homeController.displayAllOdoByDate)
+    router.get('/all-odo-bydate/:makhudo', homeController.displayAllOdoThanhvien)
+    router.get('/all-odo-vanglai/:makhudo', homeController.displayAllOdoVanglai)
+
+    // Khudo
+    router.get('/all-khudo/:loaiKhuDo', khudoController.displayAllKhudo)
 
     // Thong bao api
     router.get('/thongbao', thongbaoController.getAllThongBao)
@@ -25,6 +30,10 @@ let initWebRoutes = (app) => {
     router.get('/dangkythanhvien/:type', dangkyController.displayDangkyTV)
     router.get('/dangkyvanglai', dangkyController.displayDangkyVL)
     router.get('/dangkyvanglai/:type', dangkyController.displayDangkyVL)
+    router.get('/:option/', dangkyController.displayDangkyById)
+    router.post('/checkoutDangkyKTV/:id', dangkyController.checkoutThanhvien)
+    router.post('/checkoutDangkyKVL/:id', dangkyController.checkoutVanglai)
+
 
 
     //Loaixe api

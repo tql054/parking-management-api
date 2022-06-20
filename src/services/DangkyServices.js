@@ -1,5 +1,5 @@
 import db from '../models/index'
-const { QueryTypes } = require('sequelize');
+const { QueryTypes, where } = require('sequelize');
 let getDangkyTV = () => {
     const promise = new Promise( async function(resolve, reject) {
         try {
@@ -55,9 +55,9 @@ let getDangkyTVByName = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngay
                             where o.tenodo  = dk.odo and 
                             xe.biensoxe = dk.biensoxe and 
                             xe.thanhvien = tv.sodienthoai and 
-                            hoten like '%${searchKey}%' and 
-                            xe.loaixe like '%${loaixe}%' and 
-                            dk.trangthai like '%${tinhtrang}%' ${filterNgaydang} 
+                            ttthanhtoan = 'Đã thanh toán' and
+                            hoten like '%${searchKey}%' ${filterNgaydang} and
+                            xe.loaixe like '%${loaixe}%'   
                             Order by thoigianketthuc desc`
                             
             resolve(await db.sequelize.query(
@@ -187,6 +187,88 @@ let getDangkyVLByPhone = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT })
     return promise
 }
 
+let getDangkyTVByID = ({id}) => {
+    const promise = new  Promise( async (resolve, reject) => {
+        try {
+            const info = await db.sequelize.query(
+                `select  odo, hoten, sodienthoai, cccd, d.biensoxe , thoigianbatdau , thoigianketthuc , trangthai, ttthanhtoan
+                from "Dangkythanhviens" d, "Xes" x , "Thanhviens" t 
+                where d.biensoxe = x.biensoxe and
+                x.thanhvien = t.sodienthoai and
+                d.id = ${id}`,
+                {type: QueryTypes.SELECT}
+            )
+            
+            resolve(info)
+        } catch(e) {        
+            resolve(e)
+        }
+    })
+
+    return promise
+}
+
+let getDangkyVLByID = ({id}) => {
+    const promise = new  Promise(async (resolve, reject) => {
+        try {
+            const info = await db.Dangkyvanglai.findOne({
+                    raw: true,
+                    where: {
+                        id
+                    }
+                }
+            )
+            
+            resolve(info)
+        } catch(e) {
+            resolve(e)
+        }
+    })
+
+    return promise
+}
+
+let checkoutDangkyTV = ({id}) =>  {
+    const now = new Date()
+    const promise = new Promise(async function(resolve, reject){
+        try {
+            const response = db.Dangkythanhvien.update(
+                { thoigiankethucthuc: now },
+                { where: { id } }
+            )
+            resolve( {
+                errCode: 0,
+                errMessage: 'Checkout successfully!'
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+
+    return promise
+}
+
+let checkoutDangkyVL = ({id}) =>  {
+    const now = new Date()
+    const promise = new Promise(async function(resolve, reject){
+        try {
+            const response = db.Dangkyvanglai.update(
+                { thoigiankethucthuc: now },
+                { where: { id } }
+            )
+            resolve( {
+                errCode: 0,
+                errMessage: 'Checkout successfully!'
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+
+    return promise
+}
+
+
 module.exports = {
     getDangkyTV,
     getDangkyTVByName,
@@ -194,5 +276,9 @@ module.exports = {
     getDangkyTVByNumber,
     getDangkyVL,
     getDangkyVLByPhone,
-    getDangkyVLByNumber
+    getDangkyVLByNumber,
+    getDangkyTVByID,
+    getDangkyVLByID,
+    checkoutDangkyTV,
+    checkoutDangkyVL
 }
