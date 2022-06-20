@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Dangkyvanglai.init({
     biensoxe: DataTypes.STRING,
+    hoten: DataTypes.STRING,
     cccd: DataTypes.STRING,
     sodienthoai: DataTypes.STRING,
     thoigianbatdau: DataTypes.DATE,

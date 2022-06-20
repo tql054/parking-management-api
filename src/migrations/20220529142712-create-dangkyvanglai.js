@@ -11,6 +11,9 @@ module.exports = {
       biensoxe: {
         type: Sequelize.STRING(10)
       },
+      hoten:  {
+        type: Sequelize.STRING
+      },
       cccd: {
         type: Sequelize.STRING(10)
       },

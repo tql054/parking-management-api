@@ -32,8 +32,8 @@ let displayDangkyVL = async (req, res) => {
             return res.send(data)
         }
         case 'username': {
-            // const data = await DangkyServices.getDangkyVLByName(req.query)
-            return res.send([])
+            const data = await DangkyServices.getDangkyVLByName(req.query)
+            return res.send(data)
         }
         case 'phone': {
             const data = await DangkyServices.getDangkyVLByPhone(req.query)

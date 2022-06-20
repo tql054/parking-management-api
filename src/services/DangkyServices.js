@@ -27,7 +27,7 @@ let getDangkyTV = () => {
 let getDangkyVL = () => {
     const promise = new Promise( async function(resolve, reject) {
         try {
-            const query =   `Select tenodo,biensoxe,sodienthoai,thoigianbatdau,thoigianketthuc, k.makhudo, k.loaixe 
+            const query =   `Select tenodo,biensoxe,sodienthoai,thoigianbatdau,thoigianketthuc, k.makhudo, k.loaixe, hoten
                             from "Dangkyvanglais" d ,"Odos" o, "Khudos" k 
                             where d.odo = o.tenodo and o.makhudo = k.makhudo `
             resolve(await db.sequelize.query(
@@ -42,7 +42,7 @@ let getDangkyVL = () => {
     return promise
 }
 
-let getDangkyTVByName = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyTVByName = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngayBD, ngayKT, limit=10 }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -58,8 +58,37 @@ let getDangkyTVByName = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngay
                             ttthanhtoan = 'Đã thanh toán' and
                             hoten like '%${searchKey}%' ${filterNgaydang} and
                             xe.loaixe like '%${loaixe}%'   
-                            Order by thoigianketthuc desc`
+                            Order by thoigianketthuc desc
+                            limit ${limit}`
                             
+            resolve(await db.sequelize.query(
+                query
+                ,{ type: QueryTypes.SELECT }
+            ))
+        } catch (error) {
+            reject(error)
+        }
+    })
+
+    return promise
+}
+
+let getDangkyVLByName = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) => {
+    let filterNgaydang = ''
+    if(ngaydang==='false') {
+        filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
+    }
+    const promise = new Promise( async function(resolve, reject) {
+        try {
+            const query =   `select  tenodo, o.makhudo, dk.id, dk.biensoxe, thoigianbatdau, thoigianketthuc, 
+                            thoigiankethucthuc, k.loaixe, sodienthoai, dk.hoten
+                            from "Odos" o, "Dangkyvanglais" dk, "Khudos" k 
+                            where 	o.tenodo  = dk.odo and 
+                                    dk.odo = o.tenodo and
+                                    o.makhudo = k.makhudo and 
+                                    dk.hoten like '%${searchKey}%' and 
+                                    k.loaixe like '%${loaixe}%' ${filterNgaydang}    
+                            Order by thoigianketthuc desc`
             resolve(await db.sequelize.query(
                 query
                 ,{ type: QueryTypes.SELECT }
@@ -139,7 +168,7 @@ let getDangkyVLByNumber = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }
     const promise = new Promise( async function(resolve, reject) {
         try {
             const query =   `select  tenodo, o.makhudo, dk.id, dk.biensoxe, thoigianbatdau, thoigianketthuc, 
-                            thoigiankethucthuc, k.loaixe, sodienthoai 
+                            thoigiankethucthuc, k.loaixe, sodienthoai, dk.hoten
                             from "Odos" o, "Dangkyvanglais" dk, "Khudos" k 
                             where 	o.tenodo  = dk.odo and 
                                     dk.odo = o.tenodo and
@@ -167,7 +196,7 @@ let getDangkyVLByPhone = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT })
     const promise = new Promise( async function(resolve, reject) {
         try {
             const query =   `select  tenodo, o.makhudo, dk.id, dk.biensoxe, thoigianbatdau, thoigianketthuc, 
-                            thoigiankethucthuc, k.loaixe, sodienthoai 
+                            thoigiankethucthuc, k.loaixe, sodienthoai, dk.hoten 
                             from "Odos" o, "Dangkyvanglais" dk, "Khudos" k 
                             where 	o.tenodo  = dk.odo and 
                                     dk.odo = o.tenodo and
@@ -275,6 +304,7 @@ module.exports = {
     getDangkyTVByPhone,
     getDangkyTVByNumber,
     getDangkyVL,
+    getDangkyVLByName,
     getDangkyVLByPhone,
     getDangkyVLByNumber,
     getDangkyTVByID,
