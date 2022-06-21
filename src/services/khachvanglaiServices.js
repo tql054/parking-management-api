@@ -2,17 +2,18 @@ import db from '../models/index'
 
 let createKVL = (data) => {
     const promise = new Promise(async function (resolve, reject) {
-        var curDate = new Date();
-        var curDay = curDate.getDate();
+        let thoigianbatdau = new Date(data.thoigianbatdau)
+        let thoigianketthuc = new Date(data.thoigianketthuc)
         try {
             await db.Dangkyvanglai.create({
-                hovaten: data.hovaten,
+                hoten: data.hovaten,
                 odo: data.odo,
                 sodienthoai: data.sodienthoai,
                 cccd: data.cccd,
                 biensoxe: data.biensoxe,
-                thoigianketthuc: data.thoigianketthuc,
-                thoigianbatdau: data.thoigianbatdau,
+                thoigianketthuc,
+                thoigianbatdau,
+                nhanvien: '0935196473'
             })
 
             resolve({
@@ -23,6 +24,8 @@ let createKVL = (data) => {
             reject(error)
         }
     })
+
+    return promise
 }
 module.exports = {
     createKVL

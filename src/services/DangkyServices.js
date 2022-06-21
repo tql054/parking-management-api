@@ -297,9 +297,10 @@ let checkoutDangkyVL = ({id}) =>  {
     return promise
 }
 
-let postDangkyTVByNV = async ({biensoxe, batdau, ketthuc, odo}) => {
-    let thoigianbatdau = new Date(batdau)
-    let thoigianketthuc = new Date(ketthuc)
+let postDangkyTVByNV = ({biensoxe, dateBegin, dateEnd, odo}) => {
+    
+    let thoigianbatdau = new Date(dateBegin)
+    let thoigianketthuc = new Date(dateEnd)
     const promise = new Promise( async function(resolve, reject) {
         try {
             await db.Dangkythanhvien.create({
@@ -310,7 +311,7 @@ let postDangkyTVByNV = async ({biensoxe, batdau, ketthuc, odo}) => {
                 errCode: 0,
                 errMessage: 'Đăng ký ô đỗ thành công!'
             })
-        } catch (error) {
+        } catch (error) {   
             reject(error)
         }
     } )

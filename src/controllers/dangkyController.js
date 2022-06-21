@@ -98,7 +98,7 @@ let checkoutVanglai= async (req, res) => {
 
 let postDangkyTVByNV = async (req, res) => {
     try {
-        let response =  await DangkyServices.postDangkyTVByNV(req.query)
+        let response =  await DangkyServices.postDangkyTVByNV(req.body.params)
         return res.status(200).json(response)
     } catch(e) {
         console.log(e)
