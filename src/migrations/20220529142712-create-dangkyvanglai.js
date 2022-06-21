@@ -20,6 +20,9 @@ module.exports = {
       sodienthoai: {
         type: Sequelize.STRING(11),
       },
+      hovate: {
+        type: Sequelize.STRING(255),
+      },
       thoigianbatdau: {
         type: Sequelize.DATE
       },
