@@ -73,7 +73,7 @@ let getDangkyTVByName = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngay
     return promise
 }
 
-let getDangkyVLByName = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyVLByName = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT, limit=10 }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -88,7 +88,8 @@ let getDangkyVLByName = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) 
                                     o.makhudo = k.makhudo and 
                                     dk.hoten like '%${searchKey}%' and 
                                     k.loaixe like '%${loaixe}%' ${filterNgaydang}    
-                            Order by thoigianketthuc desc`
+                            Order by thoigianketthuc desc
+                            limit ${limit}`
             resolve(await db.sequelize.query(
                 query
                 ,{ type: QueryTypes.SELECT }
@@ -101,7 +102,7 @@ let getDangkyVLByName = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) 
     return promise
 }
 
-let getDangkyTVByPhone = ({ searchKey='', loaixe='',tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyTVByPhone = ({ searchKey='', loaixe='',tinhtrang='', ngaydang, ngayBD, ngayKT, limit=10 }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -117,7 +118,8 @@ let getDangkyTVByPhone = ({ searchKey='', loaixe='',tinhtrang='', ngaydang, ngay
                             sodienthoai like '%${searchKey}%' and 
                             xe.loaixe like '%${loaixe}%' and 
                             dk.trangthai like '%${tinhtrang}%' ${filterNgaydang} 
-                            Order by thoigianketthuc desc`
+                            Order by thoigianketthuc desc
+                            limit ${limit}`
             resolve(await db.sequelize.query(
                 query
                 ,{ type: QueryTypes.SELECT }
@@ -131,7 +133,7 @@ let getDangkyTVByPhone = ({ searchKey='', loaixe='',tinhtrang='', ngaydang, ngay
 }
 
 
-let getDangkyTVByNumber = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyTVByNumber = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ngayBD, ngayKT, limit=10 }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -147,7 +149,8 @@ let getDangkyTVByNumber = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ng
                             dk.biensoxe like '%${searchKey}%' and 
                             xe.loaixe like '%${loaixe}%' and 
                             dk.trangthai like '%${tinhtrang}%' ${filterNgaydang}     
-                            Order by thoigianketthuc desc`
+                            Order by thoigianketthuc desc
+                            limit ${limit}`
             resolve(await db.sequelize.query(
                 query
                 ,{ type: QueryTypes.SELECT }
@@ -160,7 +163,7 @@ let getDangkyTVByNumber = ({ searchKey='', loaixe='', tinhtrang='', ngaydang, ng
     return promise
 }
 
-let getDangkyVLByNumber = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyVLByNumber = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT, limit=10 }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -175,7 +178,8 @@ let getDangkyVLByNumber = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }
                                     o.makhudo = k.makhudo and 
                                     dk.biensoxe like '%${searchKey}%' and 
                                     k.loaixe like '%${loaixe}%' ${filterNgaydang}    
-                            Order by thoigianketthuc desc`
+                            Order by thoigianketthuc desc
+                            limit ${limit}`
             resolve(await db.sequelize.query(
                 query
                 ,{ type: QueryTypes.SELECT }
@@ -188,7 +192,7 @@ let getDangkyVLByNumber = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }
     return promise
 }
 
-let getDangkyVLByPhone = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT }) => {
+let getDangkyVLByPhone = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT, limit=10 }) => {
     let filterNgaydang = ''
     if(ngaydang==='false') {
         filterNgaydang = `and Date(thoigianbatdau) between '${ngayBD}' and '${ngayKT}' `
@@ -203,7 +207,8 @@ let getDangkyVLByPhone = ({ searchKey='', loaixe='', ngaydang, ngayBD, ngayKT })
                                     o.makhudo = k.makhudo and 
                                     dk.sodienthoai like '%${searchKey}%' and 
                                     k.loaixe like '%${loaixe}%' ${filterNgaydang}    
-                            Order by thoigianketthuc desc`
+                            Order by thoigianketthuc desc
+                            limit ${limit}`
             resolve(await db.sequelize.query(
                 query
                 ,{ type: QueryTypes.SELECT }
