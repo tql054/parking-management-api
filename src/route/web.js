@@ -8,6 +8,7 @@ import khudoController from "../controllers/khudoController"
 import xeController from "../controllers/xeController"
 
 
+import khachvanglaiController from '../controllers/khachvanglaiController'
 let router = express.Router()
 
 let initWebRoutes = (app) => {
@@ -23,6 +24,9 @@ let initWebRoutes = (app) => {
     // Thong bao api
     router.get('/thongbao', thongbaoController.getAllThongBao)
     router.post('/create-thongbao', thongbaoController.postThongBao)
+    router.delete('/delete-thongbao/:id', thongbaoController.deleteThongBao) //Xóa thông báo thông qua id
+    router.get('/edit-thongbao/:id', thongbaoController.getThongBao) //Lấy nội dung của thông báo cần sửa thông qua id
+    router.post('/put-thongbao', thongbaoController.putThongBao) //Sửa thông báo
 
     // Quyen api
     router.get('/quyen', quyenController.getAllQuyen)
@@ -43,6 +47,8 @@ let initWebRoutes = (app) => {
     //Loaixe api
     router.get('/loaixe', loaixeController.displayAllLoaixe)
 
+    //Khach vang lai
+    router.post('/create-khachvanglai', khachvanglaiController.postKVL)
 
     return app.use("/", router)
 }
