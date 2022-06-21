@@ -11,8 +11,8 @@ let createKVL = (data) => {
                 sodienthoai: data.sodienthoai,
                 cccd: data.cccd,
                 biensoxe: data.biensoxe,
-                thoigianketthuc: data.thoigianketthuc,
                 thoigianbatdau: data.thoigianbatdau,
+                thoigianketthuc: data.thoigianketthuc,
             })
 
             resolve({

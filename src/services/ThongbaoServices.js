@@ -15,24 +15,30 @@ let getAllThongbao = () => {
     return promise
 }
 
-let createThongBao = ({ nguoidang, tieude, noidung, ...doituongnhan }) => {
+let createThongBao = ( data) => {
     const promise = new Promise(async function (resolve, reject) {
         var curDate = new Date();
-        let arr = Object.keys(doituongnhan)
+        // let arr = Object.keys(doituongnhan)
         try {
-            let response = await db.Thongbao.create({
-                nguoidang,
-                tieude,
-                noidung,
+            await db.Thongbao.create({
+                tieude :data.tieude,
+                noidung : data.noidung,
                 ngaydang: curDate
             })
 
+           
+            // const id = await db.sequelize.query('select id from "Thongbaos" order by id desc limit 1 ', { type: QueryTypes.SELECT })
+            // console.log(id)
+            // await db.Doituongnhantbs.create({
+            //     id: data.id[0].id,
+            //     // noidung: data.noidung,
+            //     // ngaydang: curDate
+                
+            // })
 
-            const id = await db.sequelize.query('select id from "Thongbaos" order by id desc limit 1 ', { type: QueryTypes.SELECT })
-            
-            arr.map(async (doituong, index) => {
-                await db.sequelize.query(`insert into "Doituongnhantbs" values(${id[0].id}, ${+doituong})`)
-            })
+            // arr.map(async (doituong, index) => {D
+            //     await db.sequelize.query(`insert into "Doituongnhantbs" values(${id[0].id}, ${+doituong})`)
+            // })
 
             resolve({
                 errCode: 0,
@@ -42,6 +48,8 @@ let createThongBao = ({ nguoidang, tieude, noidung, ...doituongnhan }) => {
             reject(error)
         }
     })
+
+    return promise;
 }
 
 
