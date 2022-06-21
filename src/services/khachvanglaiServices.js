@@ -4,6 +4,7 @@ let createKVL = (data) => {
     const promise = new Promise(async function (resolve, reject) {
         let thoigianbatdau = new Date(data.thoigianbatdau)
         let thoigianketthuc = new Date(data.thoigianketthuc)
+
         try {
             await db.Dangkyvanglai.create({
                 hoten: data.hovaten,
@@ -11,8 +12,8 @@ let createKVL = (data) => {
                 sodienthoai: data.sodienthoai,
                 cccd: data.cccd,
                 biensoxe: data.biensoxe,
-                thoigianketthuc,
-                thoigianbatdau,
+                thoigianketthuc:`${thoigianketthuc}`,
+                thoigianbatdau:`${thoigianbatdau}`,
                 nhanvien: '0935196473'
             })
 

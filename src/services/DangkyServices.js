@@ -309,7 +309,8 @@ let postDangkyTVByNV = ({biensoxe, dateBegin, dateEnd, odo}) => {
     const promise = new Promise( async function(resolve, reject) {
         try {
             await db.Dangkythanhvien.create({
-                biensoxe, thoigianbatdau, thoigianketthuc, odo, ttthanhtoan: "Đã thanh toán"
+                biensoxe, thoigianketthuc:`${thoigianketthuc}`,
+                thoigianbatdau:`${thoigianbatdau}`, odo, ttthanhtoan: "Đã thanh toán"
             })
 
             resolve( {
