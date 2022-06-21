@@ -6,9 +6,19 @@ let getAllThongBao = async (req, res) => {
     return res.send(data)
 }
 
+// const getQuyen = async (req, res) => {
+//     try {
+//         let response = await ThongbaoServices.createThongBao()
+//         console.log()
+//     } catch (error) {
+
+//     }
+// }
+
+
 let postThongBao = async (req, res) => {
     try {
-        let response = await ThongbaoServices.createThongBao(req.body)
+        let response = await ThongbaoServices.createThongBao(req.query)
         return res.status(200).json(response)
     } catch (e) {
         console.log(e)

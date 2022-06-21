@@ -2,7 +2,7 @@ import express from "express";
 import homeController from "../controllers/homeController"
 import thongbaoController from "../controllers/thongbaoController"
 import quyenController from "../controllers/quyenController"
-
+import khachvanglaiController from '../controllers/khachvanglaiController'
 let router = express.Router()
 
 let initWebRoutes = (app) => {
@@ -19,6 +19,9 @@ let initWebRoutes = (app) => {
 
     // Quyen api
     router.get('/quyen', quyenController.getAllQuyen)
+
+    //Khach vang lai
+    router.post('/create-khachvanglai',khachvanglaiController.postKVL)
 
     return app.use("/", router)
 }
