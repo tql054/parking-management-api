@@ -96,10 +96,24 @@ let checkoutVanglai= async (req, res) => {
     }
 }
 
+let postDangkyTVByNV = async (req, res) => {
+    try {
+        let response =  await DangkyServices.postDangkyTVByNV(req.query)
+        return res.status(200).json(response)
+    } catch(e) {
+        console.log(e)
+        return res.status(500).json({
+            errCode: -1,
+            errMessage: 'Error from server: ' + e
+        })
+    }
+}
+
 module.exports = {
     displayDangkyTV,
     displayDangkyVL,
     displayDangkyById,
     checkoutThanhvien,
-    checkoutVanglai
+    checkoutVanglai,
+    postDangkyTVByNV
 }

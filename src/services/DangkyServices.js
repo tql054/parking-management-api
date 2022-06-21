@@ -1,5 +1,5 @@
 import db from '../models/index'
-const { QueryTypes, where } = require('sequelize');
+const { QueryTypes} = require('sequelize');
 let getDangkyTV = () => {
     const promise = new Promise( async function(resolve, reject) {
         try {
@@ -297,6 +297,27 @@ let checkoutDangkyVL = ({id}) =>  {
     return promise
 }
 
+let postDangkyTVByNV = async ({biensoxe, batdau, ketthuc, odo}) => {
+    let thoigianbatdau = new Date(batdau)
+    let thoigianketthuc = new Date(ketthuc)
+    const promise = new Promise( async function(resolve, reject) {
+        try {
+            await db.Dangkythanhvien.create({
+                biensoxe, thoigianbatdau, thoigianketthuc, odo, ttthanhtoan: "Đã thanh toán"
+            })
+
+            resolve( {
+                errCode: 0,
+                errMessage: 'Đăng ký ô đỗ thành công!'
+            })
+        } catch (error) {
+            reject(error)
+        }
+    } )
+
+    return promise
+}
+
 
 module.exports = {
     getDangkyTV,
@@ -310,5 +331,6 @@ module.exports = {
     getDangkyTVByID,
     getDangkyVLByID,
     checkoutDangkyTV,
-    checkoutDangkyVL
+    checkoutDangkyVL,
+    postDangkyTVByNV
 }

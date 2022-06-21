@@ -5,6 +5,8 @@ import quyenController from "../controllers/quyenController"
 import dangkyController from "../controllers/dangkyController"
 import loaixeController from "../controllers/loaixeController"
 import khudoController from "../controllers/khudoController"
+import xeController from "../controllers/xeController"
+
 
 let router = express.Router()
 
@@ -33,8 +35,10 @@ let initWebRoutes = (app) => {
     router.get('/:option/', dangkyController.displayDangkyById)
     router.post('/checkoutDangkyKTV/:id', dangkyController.checkoutThanhvien)
     router.post('/checkoutDangkyKVL/:id', dangkyController.checkoutVanglai)
+    router.post('/create-dangkythanvien', dangkyController.postDangkyTVByNV)
 
-
+    //Xe api
+    router.get('/list-xe/:thanhvien', xeController.displayAllXeByPhone)
 
     //Loaixe api
     router.get('/loaixe', loaixeController.displayAllLoaixe)
