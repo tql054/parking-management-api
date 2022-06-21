@@ -48,7 +48,7 @@ let initWebRoutes = (app) => {
     router.get('/loaixe', loaixeController.displayAllLoaixe)
 
     //Khach vang lai
-    router.post('/create-khachvanglai', khachvanglaiController.postKVL)
+    router.post('/create-khachvanglai',khachvanglaiController.postKVL)
 
     return app.use("/", router)
 }
