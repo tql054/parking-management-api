@@ -303,23 +303,13 @@ let checkoutDangkyVL = ({id}) =>  {
 }
 
 let postDangkyTVByNV = ({biensoxe, dateBegin, dateEnd, odo}) => {
-    
-    let thoigianbatdau = new Date(dateBegin)
-    let thoigianketthuc = new Date(dateEnd)
-    console.log(thoigianketthuc)
     const promise = new Promise( async function(resolve, reject) {
         try {
             await db.Dangkythanhvien.create({
-                biensoxe, thoigianketthuc: '2022-06-23 23:00:00 GMT+0700',
-                thoigianbatdau:'2022-06-23 08:00:00 GMT+0700', odo, ttthanhtoan: "Đã thanh toán"
+                biensoxe, thoigianketthuc: `${dateBegin}:00 GMT+0700`,
+                thoigianbatdau:`${dateBegin}:00 GMT+0700`, odo, ttthanhtoan: "Đã thanh toán"
             })
-            
-            // const res = await db.sequelize.query(
-            //     `insert into "Dangkythanhviens" ("biensoxe", "thoigianbatdau", "thoigianketthuc", "odo" , "ttthanhtoan", "createdAt", "updatedAt") 
-            //     values ('${biensoxe}', '${dateBegin}', '${dateEnd}', '${odo}', 'Đã thanh toán', current_timestamp, current_timestamp)
-            //     `,
-            //     {type: QueryTypes.SELECT}
-            // )
+
             resolve( {
                 errCode: 0,
                 errMessage: 'Đăng ký ô đỗ thành công!'
