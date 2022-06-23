@@ -306,6 +306,7 @@ let postDangkyTVByNV = ({biensoxe, dateBegin, dateEnd, odo}) => {
     
     let thoigianbatdau = new Date(dateBegin)
     let thoigianketthuc = new Date(dateEnd)
+    console.log(`${thoigianketthuc}`)
     const promise = new Promise( async function(resolve, reject) {
         try {
             await db.Dangkythanhvien.create({

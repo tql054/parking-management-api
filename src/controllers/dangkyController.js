@@ -4,8 +4,6 @@ let displayDangkyTV = async (req, res) => {
     switch(req.params.type) {
         case 'username': {
             const data = await DangkyServices.getDangkyTVByName(req.query)
-            console.log(req.query)
-            console.log(data)
             return res.send(data)
         }
         case 'phone': {
@@ -25,7 +23,6 @@ let displayDangkyTV = async (req, res) => {
 }
 
 let displayDangkyVL = async (req, res) => {
-    console.log(req.params.type)
     switch(req.params.type) {
         case undefined: {
             const data = await DangkyServices.getDangkyVL()
@@ -49,24 +46,19 @@ let displayDangkyVL = async (req, res) => {
 }
 
 let displayDangkyById = async (req, res) => {
-    console.log(req.params.option)
-
     switch(req.params.option) {
         case 'KTV': {
             const data = await DangkyServices.getDangkyTVByID(req.query)
-            console.log(data)
             return res.send(data)
         } 
 
         case 'KVL': {
             const data = await DangkyServices.getDangkyVLByID(req.query)
-            console.log(data)
             return res.send([data])
         }
 
         default: {
             const data = DangkyServices.getDangkyTV()
-            console.log(data)
             return res.send(data)
         }
     }
@@ -99,6 +91,7 @@ let checkoutVanglai= async (req, res) => {
 let postDangkyTVByNV = async (req, res) => {
     try {
         let response =  await DangkyServices.postDangkyTVByNV(req.body.params)
+        console.log('dang ky')
         return res.status(200).json(response)
     } catch(e) {
         console.log(e)

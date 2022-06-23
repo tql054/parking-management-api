@@ -49,9 +49,6 @@ let getAllOdoById = ({ makhudo }) => {
 }
 
 let getAllOdoThanhvien = (makhudo, {dateBegin, dateEnd}) => {
-    console.log(dateBegin)
-    console.log(dateEnd)
-
     const promise = new Promise( async function(resolve, reject) {
         try {
             const query =   `select tenodo, makhudo, d.id, d.thoigianketthuc,thoigiankethucthuc, ttthanhtoan
