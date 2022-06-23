@@ -310,8 +310,8 @@ let postDangkyTVByNV = ({biensoxe, dateBegin, dateEnd, odo}) => {
     const promise = new Promise( async function(resolve, reject) {
         try {
             await db.Dangkythanhvien.create({
-                biensoxe, thoigianketthuc,
-                thoigianbatdau, odo, ttthanhtoan: "Đã thanh toán"
+                biensoxe, thoigianketthuc: '2022-06-22T7:00:00.753Z',
+                thoigianbatdau:'2022-06-22T22:00:00.753Z', odo, ttthanhtoan: "Đã thanh toán"
             })
             
             // const res = await db.sequelize.query(
