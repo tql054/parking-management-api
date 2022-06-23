@@ -304,14 +304,14 @@ let checkoutDangkyVL = ({id}) =>  {
 
 let postDangkyTVByNV = ({biensoxe, dateBegin, dateEnd, odo}) => {
     
-    // let thoigianbatdau = new Date(dateBegin)
-    // let thoigianketthuc = new Date(dateEnd)
+    let thoigianbatdau = new Date(dateBegin)
+    let thoigianketthuc = new Date(dateEnd)
     // console.log(thoigianketthuc)
     const promise = new Promise( async function(resolve, reject) {
         try {
             await db.Dangkythanhvien.create({
-                biensoxe, thoigianketthuc:dateEnd,
-                thoigianbatdau:dateBegin, odo, ttthanhtoan: "Đã thanh toán"
+                biensoxe, thoigianketthuc,
+                thoigianbatdau, odo, ttthanhtoan: "Đã thanh toán"
             })
             
             // const info = await db.sequelize.query(
