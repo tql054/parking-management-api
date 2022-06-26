@@ -26,7 +26,9 @@ let initWebRoutes = (app) => {
     router.post('/create-thongbao', thongbaoController.postThongBao)
     router.delete('/delete-thongbao/:id', thongbaoController.deleteThongBao) //Xóa thông báo thông qua id
     router.get('/edit-thongbao/:id', thongbaoController.getThongBao) //Lấy nội dung của thông báo cần sửa thông qua id
+    // router.get('/get-maquyen/:id',thongbaoController.getMaQuyen) //lấy mã quyền của thông báo theo ma thông báo
     router.post('/put-thongbao', thongbaoController.putThongBao) //Sửa thông báo
+    router.get('/doituong', thongbaoController.getAllDoiTuong)
 
     // Quyen api
     router.get('/quyen', quyenController.getAllQuyen)
@@ -48,7 +50,7 @@ let initWebRoutes = (app) => {
     router.get('/loaixe', loaixeController.displayAllLoaixe)
 
     //Khach vang lai
-    router.post('/create-khachvanglai',khachvanglaiController.postKVL)
+    router.post('/create-khachvanglai', khachvanglaiController.postKVL)
 
     return app.use("/", router)
 }

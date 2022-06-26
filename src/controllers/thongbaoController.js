@@ -6,14 +6,18 @@ let getAllThongBao = async (req, res) => {
     return res.send(data)
 }
 
-
+//test doi tuong nhan
+let getAllDoiTuong = async (req, res) => {
+    const data = await ThongbaoServices.getDoiTuong()
+    console.log(data)
+    return res.send(data)
+}
 
 let postThongBao = async (req, res) => {
     try {
         let response = await ThongbaoServices.createThongBao(req.body)
-        return  res.redirect('http://localhost:3000/danhsachthongbao')
-
-       
+        // return res.send(response)
+        return res.redirect('http://localhost:3000/danhsachthongbao')
     } catch (e) {
         console.log(e)
         return res.status(200).json({
@@ -28,7 +32,7 @@ let postThongBao = async (req, res) => {
 let deleteThongBao = async (req, res) => {
     try {
         const data = await ThongbaoServices.deleteNotification(req.params)
-        
+
         return res.send(data)
     } catch (e) {
         console.log(e)
@@ -53,6 +57,20 @@ let getThongBao = async (req, res) => {
     }
 }
 
+// //Lấy maquyen của thông báo theo mathongbao
+// let getMaQuyen = async (req, res) => {
+//     try {
+//         let data = await ThongbaoServices.getMaQuyenById(req.params);
+//         return res.send(data)
+//     } catch (error) {
+//         console.log(error)
+//         return res.status(200).json({
+//             errCode: -1,
+//             errMessage : 'Error from server : '+ error
+//         })
+//     }
+// }
+
 //Edit thông báo
 let putThongBao = async (req, res) => {
     try {
@@ -72,5 +90,7 @@ module.exports = {
     postThongBao,
     deleteThongBao,
     getThongBao,
-    putThongBao
+    putThongBao,
+    getAllDoiTuong,
+    // getMaQuyena
 }
