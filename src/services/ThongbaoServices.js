@@ -15,30 +15,64 @@ let getAllThongbao = () => {
     return promise
 }
 
-let createThongBao = ( data) => {
+//test
+let getDoiTuong = () => {
+    const promise = new Promise(async function (resolve, reject) {
+        try {
+            const nguoinhan = await db.sequelize.query('select * from "Doituongnhantbs"', { type: QueryTypes.SELECT })
+            resolve(nguoinhan)
+        } catch (error) {
+            reject(error)
+        }
+    });
+
+    return promise
+}
+
+// let createThongBao = ( data) => {
+//     const promise = new Promise(async function (resolve, reject) {
+//         var curDate = new Date();
+//         // let arr = Object.keys(doituongnhan)
+//         try {
+//             await db.Thongbao.create({
+//                 tieude :data.tieude,
+//                 noidung : data.noidung,
+//                 ngaydang: curDate
+//             })
+
+//             resolve({
+//                 errCode: 0,
+//                 errMessage: 'Created at Thongbao'
+//             })
+//         } catch (error) {
+//             reject(error)
+//         }
+//     })
+
+//     return promise;
+// }
+
+let createThongBao = (data) => {
     const promise = new Promise(async function (resolve, reject) {
         var curDate = new Date();
-        // let arr = Object.keys(doituongnhan)
+        let arr = data.nguoinhan
         try {
             await db.Thongbao.create({
-                tieude :data.tieude,
-                noidung : data.noidung,
+                tieude: data.tieude,
+                noidung: data.noidung,
                 ngaydang: curDate
             })
 
-           
-            // const id = await db.sequelize.query('select id from "Thongbaos" order by id desc limit 1 ', { type: QueryTypes.SELECT })
-            // console.log(id)
-            // await db.Doituongnhantbs.create({
-            //     id: data.id[0].id,
-            //     // noidung: data.noidung,
-            //     // ngaydang: curDate
-                
-            // })
+            const id = await db.sequelize.query('select id from "Thongbaos" order by id desc limit 1 ', { type: QueryTypes.SELECT })
 
-            // arr.map(async (doituong, index) => {D
-            //     await db.sequelize.query(`insert into "Doituongnhantbs" values(${id[0].id}, ${+doituong})`)
-            // })
+            if (arr.length >= 2) {
+                arr.map(async (doituong, index) => {
+                    await db.sequelize.query(`insert into "Doituongnhantbs" values(${id[0].id}, ${doituong})`)
+                })
+            }
+            else {
+                await db.sequelize.query(`insert into "Doituongnhantbs" values(${id[0].id}, ${arr})`)
+            }
 
             resolve({
                 errCode: 0,
@@ -51,8 +85,6 @@ let createThongBao = ( data) => {
 
     return promise;
 }
-
-
 
 //function delete notification by id
 let deleteNotification = ({ id }) => {
@@ -83,10 +115,13 @@ let deleteNotification = ({ id }) => {
 const getNotification = ({ id }) => {
     return new Promise(async (resolve, reject) => {
         try {
+            //Lấy tiêu đề và nội dung thông báo
             let notification = await db.Thongbao.findOne({
                 where: { id: id },
                 raw: true
             })
+            // Lấy mã quyền theo mã thông báo
+            // const maquyen = await db.sequelize.query(`select maquyen from "Doituongnhantbs" where mathongbao = ${id}  `, { type: QueryTypes.SELECT })
 
             if (notification) {
                 resolve(notification)
@@ -100,6 +135,22 @@ const getNotification = ({ id }) => {
 
     })
 }
+
+// let getMaQuyenById = ({ id }) => {
+//     try {
+//         // Lấy mã quyền theo mã thông báo
+//         const maquyen = await db.sequelize.query(`select maquyen from "Doituongnhantbs" where mathongbao = ${id}  `, { type: QueryTypes.SELECT })
+
+//         if (maquyen) {
+//             resolve(maquyen)
+//         }
+//         else {
+//             resolve({})
+//         }
+//     } catch (error) {
+//         reject(error)
+//     }
+// }
 //2. Edit nội dung thông báo
 const putNotification = (data) => {
     return new Promise(async (resolve, reject) => {
@@ -129,5 +180,7 @@ module.exports = {
     createThongBao,
     deleteNotification,
     getNotification,
-    putNotification
+    putNotification,
+    getDoiTuong,
+    // getMaQuyenById
 }
