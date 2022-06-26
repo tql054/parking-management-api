@@ -49,15 +49,40 @@ let getAllOdoById = ({ makhudo }) => {
 }
 
 let getAllOdoThanhvien = (makhudo, {dateBegin, dateEnd}) => {
+
     const promise = new Promise( async function(resolve, reject) {
         try {
-            const query =   `select tenodo, makhudo, d.id, d.thoigianketthuc,thoigiankethucthuc, ttthanhtoan
-                            from "Odos" o , "Dangkythanhviens" d 
-                            where o.tenodo  = d.odo and 
-                            d.thoigianketthuc between '${dateBegin} +0700' and '${dateEnd} +0700' and 
-                            makhudo = '${makhudo}' and 
-                            d.thoigiankethucthuc is null
-                            order by d.thoigiankethucthuc desc`
+            const query =   `select tenodo, makhudo, d.id,d.thoigianbatdau , d.thoigianketthuc,thoigiankethucthuc, ttthanhtoan
+            from "Odos" o , "Dangkythanhviens" d 
+            where 	(
+                        o.tenodo  = d.odo and 
+                        d.thoigianbatdau  between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                        d.thoigianketthuc between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                        makhudo = '${makhudo}' and 
+                        d.thoigiankethucthuc is null
+                    ) or (
+                        o.tenodo  = d.odo and 
+                        d.thoigianbatdau between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                        d.thoigianketthuc >= '${dateEnd} +0700' and
+                        makhudo = '${makhudo}' and 
+                        d.thoigiankethucthuc is null
+                    
+                    ) or (
+                        o.tenodo  = d.odo and 
+                        d.thoigianbatdau <= '${dateBegin} +0700' and
+                        d.thoigianketthuc between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                        makhudo = '${makhudo}' and 
+                        d.thoigiankethucthuc is null
+                    
+                    ) or (
+                        o.tenodo  = d.odo and 
+                        d.thoigianbatdau <= '${dateBegin} +0700' and
+                        d.thoigianketthuc >= '${dateEnd} +0700' and
+                        makhudo = '${makhudo}' and 
+                        d.thoigiankethucthuc is null
+                    
+                    )
+            order by d.thoigiankethucthuc desc`
             const odo =  await db.sequelize.query(
                 query
                 ,{ type: QueryTypes.SELECT }
@@ -78,11 +103,37 @@ const getAllOdoVanglai = (makhudo, {dateBegin, dateEnd}) => {
         try {
             const query =   `select	tenodo, k.makhudo, d.id, d.thoigianketthuc
                             from 	"Odos" o , "Dangkyvanglais" d, "Khudos" k 
-                            where 	o.tenodo  = d.odo and 
-                                    o.makhudo = k.makhudo and
-                                    d.thoigiankethucthuc is null and
-                                    d.thoigianketthuc between '${dateBegin} +0700' and '${dateEnd} +0700' and 
-                                    o.makhudo = '${makhudo}'
+                            where 	(   o.tenodo  = d.odo and 
+                                        d.thoigianbatdau  between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                                        d.thoigianketthuc between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                                        o.makhudo = '${makhudo}' and
+                                        o.makhudo = k.makhudo and
+                                        d.thoigiankethucthuc is null
+                                    ) or (
+                                        o.tenodo  = d.odo and 
+                                        d.thoigianbatdau between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                                        d.thoigianketthuc >= '${dateEnd} +0700' and
+                                        o.makhudo = '${makhudo}' and
+                                        o.makhudo = k.makhudo and
+                                        d.thoigiankethucthuc is null
+                                    
+                                    ) or (
+                                        o.tenodo  = d.odo and 
+                                        d.thoigianbatdau <= '${dateBegin} +0700' and
+                                        d.thoigianketthuc between '${dateBegin} +0700' and '${dateEnd} +0700' and
+                                        o.makhudo = '${makhudo}' and
+                                        o.makhudo = k.makhudo and
+                                        d.thoigiankethucthuc is null
+                                    
+                                    ) or (
+                                        o.tenodo  = d.odo and 
+                                        d.thoigianbatdau <= '${dateBegin} +0700' and
+                                        d.thoigianketthuc >= '${dateEnd} +0700' and
+                                        o.makhudo = '${makhudo}' and
+                                        o.makhudo = k.makhudo and
+                                        d.thoigiankethucthuc is null
+                                    
+                                    )
                             order by d.thoigiankethucthuc desc`
             const odo = await db.sequelize.query(query,{type: QueryTypes.SELECT})
 

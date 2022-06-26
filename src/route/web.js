@@ -1,4 +1,5 @@
 import express from "express";
+import loginController from "../controllers/loginController"
 import homeController from "../controllers/homeController"
 import thongbaoController from "../controllers/thongbaoController"
 import quyenController from "../controllers/quyenController"
@@ -6,12 +7,19 @@ import dangkyController from "../controllers/dangkyController"
 import loaixeController from "../controllers/loaixeController"
 import khudoController from "../controllers/khudoController"
 import xeController from "../controllers/xeController"
+import taikhoanController from "../controllers/taikhoanController"
+
 
 
 import khachvanglaiController from '../controllers/khachvanglaiController'
 let router = express.Router()
 
 let initWebRoutes = (app) => {
+    //login
+    router.post('/login', loginController.handleUserLogin)
+    router.post('/check-user',loginController.checkUserPhone)
+
+    //odo
     router.get('/', homeController.getHomePage)
     router.get('/all-odo', homeController.displayAllOdo)
     router.get('/all-odo/:makhudo', homeController.displayAllOdoById)
@@ -42,13 +50,16 @@ let initWebRoutes = (app) => {
     router.post('/create-dangkythanvien', dangkyController.postDangkyTVByNV)
 
     //Xe api
-    router.get('/list-xe/:thanhvien', xeController.displayAllXeByPhone)
+    router.get('/list-xe/:thanhvien/:loaixe/:biensoxe', xeController.displayAllXeByPhone)
 
     //Loaixe api
     router.get('/loaixe', loaixeController.displayAllLoaixe)
 
     //Khach vang lai
     router.post('/create-khachvanglai',khachvanglaiController.postKVL)
+
+    //thongtintaikhoan
+    router.get('/getinfo/:right/:phone', taikhoanController.getInfoAccount)
 
     return app.use("/", router)
 }

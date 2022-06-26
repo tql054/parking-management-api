@@ -306,7 +306,7 @@ let postDangkyTVByNV = ({biensoxe, dateBegin, dateEnd, odo}) => {
     const promise = new Promise( async function(resolve, reject) {
         try {
             await db.Dangkythanhvien.create({
-                biensoxe, thoigianketthuc: `${dateBegin}:00 GMT+0700`,
+                biensoxe, thoigianketthuc: `${dateEnd}:00 GMT+0700`,
                 thoigianbatdau:`${dateBegin}:00 GMT+0700`, odo, ttthanhtoan: "Đã thanh toán"
             })
 
