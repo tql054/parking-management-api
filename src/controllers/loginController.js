@@ -48,7 +48,20 @@ const checkUserPhone = async function(req, res) {
     }
 }
 
+const displayAllUser = async function(req, res) {
+    try {
+        const data = await LoginService.getAllUser()
+        return res.send(data)
+    } catch (e) {
+        return res.status(500).json({
+            errCode: 4,
+            message: `Error from server: ${e}`
+        })
+    }
+}
+
 module.exports = {
     handleUserLogin,
-    checkUserPhone
+    checkUserPhone,
+    displayAllUser
 }

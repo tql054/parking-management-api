@@ -1,5 +1,23 @@
 import db from '../models/index'
 
+let getAllUser = () => {
+    const promise = new Promise( async function(resolve, reject) {
+        try {
+            let quyen = await db.Taikhoan.findAll({
+                attributes: {
+                    exclude: ['id']
+                },
+                raw: true
+            })
+            resolve(quyen)
+        } catch (error) {
+            reject(error)
+        }
+    });
+
+    return promise
+}
+
 let handleLogin = (sodienthoai, matkhau) => {
     const promise = new Promise( async function(resolve, reject) {
         try {
@@ -65,5 +83,6 @@ let checkUserPhone = async (sodienthoai='') => {
 
 module.exports = {
     handleLogin,
-    checkUserPhone
+    checkUserPhone,
+    getAllUser
 }

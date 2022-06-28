@@ -19,6 +19,7 @@ let initWebRoutes = (app) => {
     router.post('/login', loginController.handleUserLogin)
     router.post('/check-user/:phone',loginController.checkUserPhone)
     router.post('/check-user',loginController.checkUserPhone)
+    router.get('/all-user', loginController.displayAllUser)
     //odo
     router.get('/', homeController.getHomePage)
     router.get('/all-odo', homeController.displayAllOdo)
