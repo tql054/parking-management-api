@@ -17,8 +17,8 @@ let router = express.Router()
 let initWebRoutes = (app) => {
     //login
     router.post('/login', loginController.handleUserLogin)
+    router.post('/check-user/:phone',loginController.checkUserPhone)
     router.post('/check-user',loginController.checkUserPhone)
-
     //odo
     router.get('/', homeController.getHomePage)
     router.get('/all-odo', homeController.displayAllOdo)
@@ -53,6 +53,8 @@ let initWebRoutes = (app) => {
 
     //Xe api
     router.get('/list-xe/:thanhvien/:loaixe/:biensoxe', xeController.displayAllXeByPhone)
+    router.get('/list-xe/:thanhvien/:loaixe', xeController.displayAllXeByPhone)
+
 
     //Loaixe api
     router.get('/loaixe', loaixeController.displayAllLoaixe)

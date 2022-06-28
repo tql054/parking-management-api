@@ -41,7 +41,7 @@ let handleLogin = (sodienthoai, matkhau) => {
     return promise
 }
 
-let checkUserPhone = async (sodienthoai) => {
+let checkUserPhone = async (sodienthoai='') => {
     const promise = new Promise(async function(resolve, reject) {
         try {
             let user = await db.Taikhoan.findOne({
@@ -64,5 +64,6 @@ let checkUserPhone = async (sodienthoai) => {
 
 
 module.exports = {
-    handleLogin
+    handleLogin,
+    checkUserPhone
 }

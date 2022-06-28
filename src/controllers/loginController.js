@@ -26,7 +26,8 @@ const handleUserLogin = async function(req, res) {
 
 const checkUserPhone = async function(req, res) {
     try {
-        const response = LoginService.checkUserPhone(res.body.sodienthoai)
+        const response = await LoginService.checkUserPhone(req.params.phone)
+        console.log(response, 123)
         if(response) {
             return res.status(200).json({
                 errCode: 0,
@@ -34,7 +35,7 @@ const checkUserPhone = async function(req, res) {
             })
         } else {
             return res.status(200).json({
-                errCode: 0,
+                errCode: 1,
                 message: 'Số điện thoại chưa được đăng ký'
             })
         }

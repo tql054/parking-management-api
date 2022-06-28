@@ -1,18 +1,18 @@
 import db from '../models/index'
 
-let createKVL = (data) => {
+let createKVL = ({hoten, odo, sodienthoai, cccd, biensoxe, thoigianbatdau, thoigianketthuc, nhanvien}) => {
     const promise = new Promise(async function (resolve, reject) {
 
         try {
             await db.Dangkyvanglai.create({
-                hoten: data.hovaten,
-                odo: data.odo,
-                sodienthoai: data.sodienthoai,
-                cccd: data.cccd,
-                biensoxe: data.biensoxe,
-                thoigianketthuc:`${data.thoigianketthuc}:00 GMT+0700`,
-                thoigianbatdau:`${data.thoigianbatdau}:00 GMT+0700`,
-                nhanvien: '0935196473'
+                hoten,
+                odo,
+                sodienthoai,
+                cccd,
+                biensoxe,
+                thoigianketthuc:`${thoigianketthuc}:00 GMT+0700`,
+                thoigianbatdau:`${thoigianbatdau}:00 GMT+0700`,
+                nhanvien
             })
 
             resolve({

@@ -66,9 +66,11 @@ let displayDangkyById = async (req, res) => {
 
 let checkoutThanhvien = async (req, res) => {
     try {
-        const response = await DangkyServices.checkoutDangkyTV(req.params)
+        const response = await DangkyServices.checkoutDangkyTV(req.params.id, req.body.params)
+        console.log(response)
         return res.status(200).json(response)
     } catch (e) {
+        console.log(e)
         return res.status(500).json({
             errCode: -1,
             errMessage: 'Error from server: ' + e

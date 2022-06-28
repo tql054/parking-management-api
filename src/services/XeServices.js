@@ -5,8 +5,8 @@ const Op = sequelize.Op;
 //   $like: Op.like,
 //   $not: Op.not
 // }
-let getAllXeByPhone = async ({thanhvien, biensoxe, loaixe}) => {
-    console.log(biensoxe, loaixe)
+let getAllXeByPhone = async ({thanhvien, biensoxe='', loaixe}) => {
+    console.log(thanhvien, biensoxe, loaixe)
     const promise = new  Promise(async (resolve, reject) => {
         try {
             const info = await db.Xe.findAll({

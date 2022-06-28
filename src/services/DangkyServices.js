@@ -262,14 +262,30 @@ let getDangkyVLByID = ({id}) => {
     return promise
 }
 
-let checkoutDangkyTV = ({id}) =>  {
+let checkoutDangkyTV = async (id, {isPunished=false}) =>  {
+    console.log(id, isPunished)
     const now = new Date()
     const promise = new Promise(async function(resolve, reject){
         try {
-            const response = db.Dangkythanhvien.update(
+            const response = await db.Dangkythanhvien.update(
                 { thoigiankethucthuc: now },
                 { where: { id } }
             )
+
+            if(isPunished) {
+                // const penalt = await db.Dangkyvipham.create({
+                //         madangky: +id,
+                //         madmvp: 1
+                //     }, { fields: ['madangky','madmvp'] } 
+                // )
+                const now = new Date()
+                const date = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} 
+                ${now.getHours()}:00 +0700`
+                const penalt = await db.sequelize.query(
+                    `Insert into "Dangkyviphams" ("madangky", "madmvp", "createdAt", "updatedAt")
+                    values (${+id}, ${1}, '${date}', '${date}')`
+                    ,{ type: QueryTypes.INSERT })
+            }
             resolve( {
                 errCode: 0,
                 errMessage: 'Checkout successfully!'
