@@ -31,11 +31,11 @@ let initWebRoutes = (app) => {
     router.get('/all-khudo/:loaiKhuDo', khudoController.displayAllKhudo)
 
     // Thong bao api
-    router.get('/thongbao', thongbaoController.getAllThongBao)
+    router.get('/thongbao/:right', thongbaoController.getAllThongBao)
     router.post('/create-thongbao', thongbaoController.postThongBao)
     router.delete('/delete-thongbao/:id', thongbaoController.deleteThongBao) //Xóa thông báo thông qua id
     router.get('/edit-thongbao/:id', thongbaoController.getThongBao) //Lấy nội dung của thông báo cần sửa thông qua id
-    // router.get('/get-maquyen/:id',thongbaoController.getMaQuyen) //lấy mã quyền của thông báo theo ma thông báo
+    router.get('/get-maquyen/:id',thongbaoController.getMaQuyen) //lấy mã quyền của thông báo theo ma thông báo
     router.post('/put-thongbao', thongbaoController.putThongBao) //Sửa thông báo
     router.get('/doituong', thongbaoController.getAllDoiTuong)
 

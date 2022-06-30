@@ -1,12 +1,34 @@
 import db from '../models/index'
 const { QueryTypes } = require('sequelize')
-let getAllThongbao = () => {
+// let getAllThongbao = () => {
+//     const promise = new Promise(async function (resolve, reject) {
+//         try {
+//             let thongbao = await db.Thongbao.findAll({
+//                 raw: true
+//             })
+//             resolve(thongbao)
+//         } catch (error) {
+//             reject(error)
+//         }
+//     });
+
+//     return promise
+// }
+
+let getAllThongbao = ({ right }) => {
     const promise = new Promise(async function (resolve, reject) {
         try {
-            let thongbao = await db.Thongbao.findAll({
-                raw: true
-            })
-            resolve(thongbao)
+            if (right == 1) {
+                // let thongbao = await db.Thongbao.findAll({
+                //     raw: true
+                // })
+                let thongbao = await db.sequelize.query('select * from "Thongbaos"', { type: QueryTypes.SELECT })
+                resolve(thongbao)
+            }
+            else {
+                let thongbao = await db.sequelize.query(`select * from "Thongbaos" , "Doituongnhantbs" where id = mathongbao and maquyen = ${right}`, { type: QueryTypes.SELECT })
+                resolve(thongbao)
+            }
         } catch (error) {
             reject(error)
         }
@@ -29,28 +51,6 @@ let getDoiTuong = () => {
     return promise
 }
 
-// let createThongBao = ( data) => {
-//     const promise = new Promise(async function (resolve, reject) {
-//         var curDate = new Date();
-//         // let arr = Object.keys(doituongnhan)
-//         try {
-//             await db.Thongbao.create({
-//                 tieude :data.tieude,
-//                 noidung : data.noidung,
-//                 ngaydang: curDate
-//             })
-
-//             resolve({
-//                 errCode: 0,
-//                 errMessage: 'Created at Thongbao'
-//             })
-//         } catch (error) {
-//             reject(error)
-//         }
-//     })
-
-//     return promise;
-// }
 
 let createThongBao = (data) => {
     const promise = new Promise(async function (resolve, reject) {
@@ -60,6 +60,7 @@ let createThongBao = (data) => {
             await db.Thongbao.create({
                 tieude: data.tieude,
                 noidung: data.noidung,
+                nguoidang : data.nguoidang,
                 ngaydang: curDate
             })
 
@@ -120,8 +121,6 @@ const getNotification = ({ id }) => {
                 where: { id: id },
                 raw: true
             })
-            // Lấy mã quyền theo mã thông báo
-            // const maquyen = await db.sequelize.query(`select maquyen from "Doituongnhantbs" where mathongbao = ${id}  `, { type: QueryTypes.SELECT })
 
             if (notification) {
                 resolve(notification)
@@ -136,45 +135,98 @@ const getNotification = ({ id }) => {
     })
 }
 
-// let getMaQuyenById = ({ id }) => {
-//     try {
-//         // Lấy mã quyền theo mã thông báo
-//         const maquyen = await db.sequelize.query(`select maquyen from "Doituongnhantbs" where mathongbao = ${id}  `, { type: QueryTypes.SELECT })
-
-//         if (maquyen) {
-//             resolve(maquyen)
-//         }
-//         else {
-//             resolve({})
-//         }
-//     } catch (error) {
-//         reject(error)
-//     }
-// }
-//2. Edit nội dung thông báo
-const putNotification = (data) => {
+//Lấy maquyen qua mã thông báo
+let getMaQuyenById = async ({ id }) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let notificationNew = await db.Thongbao.findOne({
-                where: { id: data.id }
-            })
+            // Lấy mã quyền theo mã thông báo
+            const maquyen = await db.sequelize.query(`select maquyen from "Doituongnhantbs" where mathongbao = ${id}  `, { type: QueryTypes.SELECT })
 
-            if (notificationNew) {
-                notificationNew.tieude = data.tieude;
-                notificationNew.noidung = data.noidung;
-
-                await notificationNew.save();
-                let getAllNotification = db.Thongbao.findAll()
-                resolve(getAllNotification);
+            if (maquyen) {
+                resolve(maquyen)
             }
             else {
-                resolve();
+                resolve({})
             }
         } catch (error) {
-            console.log(error)
+            reject(error)
         }
     })
 }
+//2. Edit nội dung thông báo
+const putNotification = (data) => {
+    return new Promise(async (resolve, reject) => {
+        let arr = data.nguoinhan;
+        if (arr.length >= 2) {
+            arr = arr.split(",")
+        }
+        else {
+            arr = Object.values(arr)
+        }
+        console.log(typeof arr)
+        try {
+            let notification = await db.Thongbao.findOne({
+                where: { id: data.id }
+            })
+            //Update tieude & noidung thong bao
+            if (notification) {
+                notification.tieude = data.tieude
+                notification.noidung = data.noidung
+                await notification.save();
+            }
+
+            // let doituongnhan = await db.sequelize.query(`select * from "Doituongnhantbs" where mathongbao = ${data.id} `, { type: QueryTypes.SELECT })
+
+            //Xóa tất cả mathongbao trong table doituongnhantb
+            await db.sequelize.query(`delete from "Doituongnhantbs" where mathongbao = ${data.id}`)
+
+            if (arr.length >= 2) {
+                arr.map(async item => {
+                    await db.sequelize.query(`insert into "Doituongnhantbs" values(${data.id}, ${item})`)
+                })
+            }
+            else {
+                await db.sequelize.query(`insert into "Doituongnhantbs" values(${data.id}, ${arr[0]})`)
+            }
+
+
+            resolve({
+                errCode: 0,
+                errMessage: 'Created at Thongbao'
+            })
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+// const putNotification = (data) => {
+//     return new Promise(async (resolve, reject) => {
+//         try {
+//             let notificationNew = await db.Thongbao.findOne({
+//                 where: { id: data.id }
+//             })
+//             let doituongnhanNew = await db.Doituongnhantb.findOne({
+//                 where: { id: data.id }
+//             })
+//             if (notificationNew && doituongnhan) {
+//                 notificationNew.tieude = data.tieude;
+//                 notificationNew.noidung = data.noidung;
+
+//                 if (doituongnhanNew.length >= 2) 
+
+
+//                 await notificationNew.save();
+//                 // let getAllNotification = db.Thongbao.findAll()
+//                 // resolve(getAllNotification);
+//             }
+//             else {
+//                 resolve();
+//             }
+//         } catch (error) {
+//             console.log(error)
+//         }
+//     })
+// }
 module.exports = {
     getAllThongbao,
     createThongBao,
@@ -182,5 +234,5 @@ module.exports = {
     getNotification,
     putNotification,
     getDoiTuong,
-    // getMaQuyenById
+    getMaQuyenById
 }

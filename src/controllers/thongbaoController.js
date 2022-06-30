@@ -1,7 +1,7 @@
 import ThongbaoServices from '../services/ThongbaoServices';
 
 let getAllThongBao = async (req, res) => {
-    const data = await ThongbaoServices.getAllThongbao()
+    const data = await ThongbaoServices.getAllThongbao(req.params)
     console.log(data)
     return res.send(data)
 }
@@ -58,24 +58,25 @@ let getThongBao = async (req, res) => {
 }
 
 // //Lấy maquyen của thông báo theo mathongbao
-// let getMaQuyen = async (req, res) => {
-//     try {
-//         let data = await ThongbaoServices.getMaQuyenById(req.params);
-//         return res.send(data)
-//     } catch (error) {
-//         console.log(error)
-//         return res.status(200).json({
-//             errCode: -1,
-//             errMessage : 'Error from server : '+ error
-//         })
-//     }
-// }
+let getMaQuyen = async (req, res) => {
+    try {
+        let data = await ThongbaoServices.getMaQuyenById(req.params);
+        return res.send(data)
+    } catch (error) {
+        console.log(error)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage : 'Error from server : '+ error
+        })
+    }
+}
 
 //Edit thông báo
 let putThongBao = async (req, res) => {
     try {
-        let response = await ThongbaoServices.putNotification(req.body);
+        let data = await ThongbaoServices.putNotification(req.body);
         return res.redirect('http://localhost:3000/danhsachthongbao')
+        // return res.send(data)
     } catch (error) {
         console.log(error)
         return res.status(200).json({
@@ -92,5 +93,5 @@ module.exports = {
     getThongBao,
     putThongBao,
     getAllDoiTuong,
-    // getMaQuyena
+    getMaQuyen
 }
