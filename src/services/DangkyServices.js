@@ -27,7 +27,7 @@ let getDangkyTV = () => {
 let getDangkyVL = () => {
     const promise = new Promise( async function(resolve, reject) {
         try {
-            const query =   `Select tenodo,biensoxe,sodienthoai,thoigianbatdau,thoigianketthuc, k.makhudo, k.loaixe, hoten
+            const query =   `Select tenodo,biensoxe,sodienthoai,thoigianbatdau,thoigianketthuc,thoigiankethucthuc, k.makhudo, k.loaixe, hoten
                             from "Dangkyvanglais" d ,"Odos" o, "Khudos" k 
                             where d.odo = o.tenodo and o.makhudo = k.makhudo `
             resolve(await db.sequelize.query(
